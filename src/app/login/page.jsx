@@ -4,8 +4,10 @@ import loginImg from "../../assets/images/login/login.svg";
 import { FaFacebookF, FaGoogle, FaLinkedinIn } from "react-icons/fa";
 import Link from "next/link";
 import { signIn } from "next-auth/react";
-
+import { useRouter } from "next/navigation";
 const LoginPage = () => {
+  const router = useRouter();
+
   const handleLogin = async (e) => {
     e.preventDefault();
     const form = e.target;
@@ -17,7 +19,9 @@ const LoginPage = () => {
       password,
       redirect: false,
     });
-    console.log(res);
+    if (res.status === 200) {
+      router.push("/");
+    }
   };
 
   return (

@@ -1,10 +1,16 @@
+"use client";
 import Link from "next/link";
 import logo from "../../../assets/logo.svg";
 import { HiOutlineShoppingBag } from "react-icons/hi2";
 import { CiSearch } from "react-icons/ci";
 import Image from "next/image";
+import { useSession } from "next-auth/react";
+import { FaUserCheck } from "react-icons/fa";
+import { IoIosLogOut } from "react-icons/io";
+import { signOut } from "next-auth/react";
+
 const Navbar = () => {
-  const user = false;
+  const session = useSession();
   const links = (
     <>
       <li>
@@ -24,16 +30,6 @@ const Navbar = () => {
       </li>
     </>
   );
-
-  const handleLogOutUser = () => {
-    logOut()
-      .then((res) => {
-        // console.log(res);
-      })
-      .catch((err) => {
-        console.error(err);
-      });
-  };
 
   return (
     <nav className="sticky z-50 top-0 mb-5 shadow-sm bg-white">
@@ -63,7 +59,7 @@ const Navbar = () => {
               {links}
             </ul>
           </div>
-          <Link href='/'>
+          <Link href="/">
             <Image src={logo} alt="Logo" className="md:w-16 lg:w:24 w-12" />
           </Link>
         </div>
@@ -71,22 +67,47 @@ const Navbar = () => {
           <ul className="menu gap-3 menu-horizontal px-1">{links}</ul>
         </div>
         <div className="navbar-end gap-5 items-center">
-          <Link href={"/cartDetails"}>
-            <div className="indicator">
+          <Link className="inline-block" href={"/cartDetails"}>
+            <div className="indicator mt-2">
               <HiOutlineShoppingBag className="text-2xl cursor-pointer" />
               <span className="indicator-item badge badge-secondary">0</span>
             </div>
           </Link>
           <CiSearch className="text-2xl cursor-pointer" />
-          {user ? (
+          {session.data ? (
             <div>
-              <Link href='/appointment' className="btn hover:text-white   btn-error btn-outline">Appointment</Link>
-              <button
-                // onClick={handleLogOutUser}
-                className="btn btn-error ml-3 text-white"
-              >
-                Log out
-              </button>
+              <details>
+                <summary className="list-none">
+                  <FaUserCheck className="text-3xl cursor-pointer" />
+                </summary>
+                <ul className="absolute text-center right-4 top-16 bg-white py-4 px-8 rounded-lg space-y-2 w-max ">
+                  <li>
+                    <strong className='text-lg'>{session?.data?.user?.name}</strong>
+                  </li>
+                  <li>
+                    <Link
+                      className="hover:text-error transition duration-300 "
+                      href="/appointment"
+                    >
+                      Appointment
+                    </Link>
+                  </li>
+                  <li>
+                    <button className="hover:text-error transition duration-300 ">
+                      Profile
+                    </button>
+                  </li>
+                  <li>
+                    <button className="hover:text-error transition duration-300 ">
+                      Setting
+                    </button>
+                  </li>
+                  <li className="text-error hover:text-red-500 transition duration-300  flex justify-between items-center">
+                    <button onClick={() => signOut()}>Log out</button>
+                    <IoIosLogOut />
+                  </li>
+                </ul>
+              </details>
             </div>
           ) : (
             <Link href="/login">
