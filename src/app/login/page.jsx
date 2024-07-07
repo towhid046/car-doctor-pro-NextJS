@@ -1,17 +1,38 @@
+"use client";
 import Image from "next/image";
 import loginImg from "../../assets/images/login/login.svg";
 import { FaFacebookF, FaGoogle, FaLinkedinIn } from "react-icons/fa";
-import Link from 'next/link'
+import Link from "next/link";
+import { signIn } from "next-auth/react";
 
 const LoginPage = () => {
+  const handleLogin = async (e) => {
+    e.preventDefault();
+    const form = e.target;
+    const email = form.email.value;
+    const password = form.password.value;
+
+    const res = await signIn("credentials", {
+      email,
+      password,
+      redirect: false,
+    });
+    console.log(res);
+  };
 
   return (
     <section className="container mx-auto px-4 py-10 flex-col-reverse lg:flex-row flex items-center justify-between lg:gap-10 gap-8">
       <div className="lg:w-1/2">
-        <Image width={460} height={502} className="" src={loginImg} alt="Login Image" />
+        <Image
+          width={460}
+          height={502}
+          className=""
+          src={loginImg}
+          alt="Login Image"
+        />
       </div>
       <div className="border p-10 rounded-lg lg:w-1/2">
-        <form  className="space-y-5">
+        <form onSubmit={handleLogin} className="space-y-5">
           <h2 className="text-center text-3xl mb-5 font-bold">Login </h2>
           <label htmlFor="">
             <strong>Email</strong>
