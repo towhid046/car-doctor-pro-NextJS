@@ -1,8 +1,8 @@
 "use client";
 import loginImg from "../../assets/images/login/login.svg";
-import { FaFacebookF, FaGoogle, FaLinkedinIn } from "react-icons/fa";
 import Link from "next/link";
 import Image from "next/image";
+import SocialLogin from "./../../components/shared/SocialLogin/SocialLogin";
 
 const RegisterPage = () => {
   const handleRegister = async (e) => {
@@ -12,7 +12,7 @@ const RegisterPage = () => {
     const email = form.email.value;
     const password = form.password.value;
     const user = { name, email, password };
-    
+
     if (!user) {
       return alert("Please fill all input");
     }
@@ -84,17 +84,7 @@ const RegisterPage = () => {
             className="btn btn-error w-full"
           />
           <p className="text-center">Or Sign up with</p>
-          <ul className="flex items-center justify-center  gap-3">
-            <li className="btn h-12 w-12 rounded-full">
-              <FaFacebookF className="text-blue-500 text-xl" />
-            </li>
-            <li className="btn h-12 w-12 rounded-full">
-              <FaLinkedinIn className="text-blue-500 text-xl" />
-            </li>
-            <li className="btn h-12 w-12 rounded-full">
-              <FaGoogle className=" text-2xl" />
-            </li>
-          </ul>
+          <SocialLogin />
           <p className="mt-12 text-center">
             Already have an account?{" "}
             <Link href={"/login"} className="text-red-400 font-bold">

@@ -1,10 +1,11 @@
 "use client";
 import Image from "next/image";
 import loginImg from "../../assets/images/login/login.svg";
-import { FaFacebookF, FaGoogle, FaLinkedinIn } from "react-icons/fa";
 import Link from "next/link";
 import { signIn } from "next-auth/react";
 import { useRouter } from "next/navigation";
+import SocialLogin from "./../../components/shared/SocialLogin/SocialLogin";
+
 const LoginPage = () => {
   const router = useRouter();
 
@@ -63,17 +64,7 @@ const LoginPage = () => {
             className="btn btn-error w-full"
           />
           <p className="text-center">Or Sign In with</p>
-          <ul className="flex items-center justify-center  gap-3">
-            <li className="btn h-12 w-12 rounded-full">
-              <FaFacebookF className="text-blue-500 text-xl" />
-            </li>
-            <li className="btn h-12 w-12 rounded-full">
-              <FaLinkedinIn className="text-blue-500 text-xl" />
-            </li>
-            <li className="btn h-12 w-12 rounded-full">
-              <FaGoogle className=" text-2xl" />
-            </li>
-          </ul>
+          <SocialLogin/>
           <p className="mt-12 text-center">
             Have not an account?{" "}
             <Link href={"/register"} className="text-red-400 font-bold">
