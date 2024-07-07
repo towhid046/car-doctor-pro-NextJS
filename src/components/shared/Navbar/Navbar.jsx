@@ -90,7 +90,7 @@ const Navbar = () => {
                     <FaUserCheck className="text-3xl" />
                   )}
                 </summary>
-                <ul className="absolute text-center right-4 top-16 bg-white py-4 px-8 rounded-lg space-y-2 w-max ">
+                <ul className="absolute shadow-sm text-center right-4 top-16 bg-white py-4 px-8 rounded-lg space-y-2 w-max ">
                   <li>
                     <strong className="text-lg">
                       {session?.data?.user?.name}

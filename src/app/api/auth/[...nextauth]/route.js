@@ -5,7 +5,6 @@ import bcrypt from "bcrypt";
 import GoogleProvider from "next-auth/providers/google";
 import GitHubProvider from "next-auth/providers/github";
 
-
 const handler = NextAuth({
   session: {
     strategy: "jwt",
@@ -31,18 +30,36 @@ const handler = NextAuth({
     }),
     GoogleProvider({
       clientId: process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID,
-      clientSecret: process.env.NEXT_PUBLIC_GOOGLE_CLIENT_SECRET
+      clientSecret: process.env.NEXT_PUBLIC_GOOGLE_CLIENT_SECRET,
     }),
     GitHubProvider({
       clientId: process.env.NEXT_PUBLIC_GITHUB_ID,
-      clientSecret: process.env.NEXT_PUBLIC_GITHUB_SECRET
-    })
-
+      clientSecret: process.env.NEXT_PUBLIC_GITHUB_SECRET,
+    }),
   ],
-  callbacks: {},
   pages: {
     signIn: "/login",
     signOut: "/",
+  },
+  callbacks: {
+    async signIn({ user, account }) {
+      if (account.provider === "google" || account.provider === "github") {
+        const { name, email, password } = user;
+        try {
+          const db = await connectDB();
+          const userCollection = db.collection("users");
+          const isUserExist = await userCollection.findOne({ email });
+          if (!isUserExist) {
+             await userCollection.insertOne(user);
+            return user;
+          }
+          return user;
+        } catch (error) {
+          console.error(error.message);
+        }
+      }
+      return user;
+    },
   },
 });
 export { handler as GET, handler as POST };
