@@ -46,6 +46,7 @@ const LoginPage = () => {
               className="input input-bordered w-full"
               name="email"
               placeholder="Your email"
+              required
             />
           </label>{" "}
           <br /> <br />
@@ -56,6 +57,7 @@ const LoginPage = () => {
               name="password"
               placeholder="Password"
               className="input input-bordered w-full"
+              required
             />
           </label>
           <input
@@ -63,15 +65,17 @@ const LoginPage = () => {
             value="Sign In"
             className="btn btn-error w-full"
           />
+        </form>
+        <div className='space-y-3'>
           <p className="text-center">Or Sign In with</p>
-          <SocialLogin/>
+          <SocialLogin />
           <p className="mt-12 text-center">
             Have not an account?{" "}
             <Link href={"/register"} className="text-red-400 font-bold">
               Sign Up
             </Link>
           </p>
-        </form>
+        </div>
       </div>
     </section>
   );

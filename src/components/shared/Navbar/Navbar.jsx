@@ -77,12 +77,24 @@ const Navbar = () => {
           {session.data ? (
             <div>
               <details>
-                <summary className="list-none">
-                  <FaUserCheck className="text-3xl cursor-pointer" />
+                <summary className="list-none cursor-pointer">
+                  {session?.data?.user?.image ? (
+                    <Image
+                    src={session?.data?.user?.image}
+                      width={40}
+                      height={40}
+                      className="rounded-full"
+                      alt={session?.data?.user?.name}
+                    />
+                  ) : (
+                    <FaUserCheck className="text-3xl" />
+                  )}
                 </summary>
                 <ul className="absolute text-center right-4 top-16 bg-white py-4 px-8 rounded-lg space-y-2 w-max ">
                   <li>
-                    <strong className='text-lg'>{session?.data?.user?.name}</strong>
+                    <strong className="text-lg">
+                      {session?.data?.user?.name}
+                    </strong>
                   </li>
                   <li>
                     <Link
@@ -102,7 +114,7 @@ const Navbar = () => {
                       Setting
                     </button>
                   </li>
-                  <li className="text-error hover:text-red-500 transition duration-300  flex justify-between items-center">
+                  <li className="text-error hover:text-red-500 transition duration-300  flex justify-center gap-5 items-center">
                     <button onClick={() => signOut()}>Log out</button>
                     <IoIosLogOut />
                   </li>
