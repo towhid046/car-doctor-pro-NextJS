@@ -83,6 +83,8 @@ const RegisterPage = () => {
             value="Sign In"
             className="btn btn-error w-full"
           />
+        </form>
+        <div className="space-y-3">
           <p className="text-center">Or Sign up with</p>
           <SocialLogin />
           <p className="mt-12 text-center">
@@ -91,7 +93,7 @@ const RegisterPage = () => {
               Log in
             </Link>
           </p>
-        </form>
+        </div>
       </div>
     </section>
   );
