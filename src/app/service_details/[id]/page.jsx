@@ -4,6 +4,11 @@ import Image from 'next/image'
 import { FaArrowRightLong } from "react-icons/fa6";
 import Link  from 'next/link';
 
+export const metadata = {
+  title: 'Details',
+  description: "Car servicing web application details",
+};
+
 const loadService = async (id) => {
   const res = await fetch(
     `${process.env.NEXT_PUBLIC_API_URL}/api/services/${id}`
@@ -18,7 +23,7 @@ const CheckoutPage = async ({ params }) => {
 
   return (
     <section className="py-12 container mx-auto px-4">
-      <PageHeader bgUrl={checkOutImg} title="Service Details" />
+      <PageHeader bgUrl={checkOutImg} title={`Service Details for ${service_title}`} />
       <div className="grid lg:grid-cols-3 grid-cols-1 gap-6">
         <div className="col-span-2">
           <figure className="mb-7">

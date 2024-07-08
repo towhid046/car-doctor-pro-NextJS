@@ -6,6 +6,7 @@ import { signIn } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import SocialLogin from "./../../components/shared/SocialLogin/SocialLogin";
 
+
 const LoginPage = () => {
   const router = useRouter();
 

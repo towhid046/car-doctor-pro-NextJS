@@ -1,57 +1,89 @@
+"use client"
+import {useEffect, useState} from 'react'
+import { useSession } from 'next-auth/react';
 import checkOutImg from "../../../assets/images/checkout/checkout.png";
 import PageHeader from "../../../components/shared/PageHeader/PageHeader";
+import LoadingSpinner from './../../../components/shared/LoadingSpinner/LoadingSpinner';
 
-const loadService = async (id) => {
+const CheckoutPage =  ({ params }) => {
+
+  const [service, setService] = useState({})
+  const [loading, setLoading] = useState(true);
+
+  const session = useSession()
+
+    useEffect(()=>{
+      const loadService = async () => {
+try {
   const res = await fetch(
-    `${process.env.NEXT_PUBLIC_API_URL}/api/services/${id}`
+    `${process.env.NEXT_PUBLIC_API_URL}/api/services/${params?.id}`
   );
-  return await res.json();
-};
-const CheckoutPage = async ({ params }) => {
-  const service = await loadService(params?.id);
+  const data =  await res.json();
+  setService(data)
+
+} catch (error) {
+console.error(error.message)
+}finally{
+  setLoading(false)
+}
+      };
+      loadService()
+    },[params])
 
   const { title, _id, price, img } = service;
 
-  const handleCustomerOrder = (e) => {
+  const handleBooking = async(e) => {
     e.preventDefault();
     const form = e.target;
-    const name = form.name.value;
-    const email = form.email.value;
+
+    const name = session?.data?.user?.name;
+    const email = session?.data?.user?.email;
     const phone = form.phone.value;
     const date = form.date.value;
-    const message = form.message.value;
-    const status = "Confirm";
-    const customer = {
+    const address = form.address.value;
+
+    const newBooking = {
       name,
-      date,
-      phone,
       email,
+      phone,
+      date,
       service_title: title,
       img,
       service_id: _id,
       service_price: price,
-      message,
-      status,
+      address,
+      status: 'Confirm',
     };
 
-    // axios
-    //   .post(`${import.meta.env.VITE_API_URL}/customers`, customer)
-    //   .then((res) => {
-    //     if (res.data.insertedId) {
-    //       form.reset();
-    //     }
-    //   })
-    //   .catch((err) => {
-    //     console.error(err);
-    //   });
+    // send post request to save new booking
+  try{
+    const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/booking`, {
+      method: 'POST',
+      body: JSON.stringify(newBooking),
+      headers: {'Content-Type': 'application/json'}
+    })
+    const result = await res.json()
+    if(result.insertedId){
+      alert('Service have been booked successfully')
+      form.reset()
+    }
+  }catch(err){
+    console.error(err.message)
+  }
+
+
   };
+
+  if(loading){
+    return <LoadingSpinner/>
+  }
 
   return (
     <section className="py-12 container mx-auto px-4">
       <PageHeader bgUrl={checkOutImg} title={`Check Out for ${title}`} />
       <div className="bg-gray-100 lg:p-16 md:p-8 p-4 rounded-xl">
         <form
-        //   onSubmit={handleCustomerOrder}
+          onSubmit={handleBooking}
           className="grid grid-cols-1 md:grid-cols-2 gap-5"
         >
           <div>
@@ -61,19 +93,26 @@ const CheckoutPage = async ({ params }) => {
                 type="text"
                 name="name"
                 placeholder="Name"
-                id=""
-                className="input border-none outline-none input-bordered w-full"
+                defaultValue={session?.data?.user?.name}
+                readOnly
+                className="input border-none focus:outline-none w-full"
+                required
+
               />
             </label>
           </div>
           <div>
             <label htmlFor="">
-              <strong>Date</strong>
+              <strong>Email</strong>
               <input
-                type="date"
-                name="date"
-                id=""
-                className="input input-bordered  border-none outline-none w-full"
+                type="email"
+                name="email"
+                readOnly
+                defaultValue={session?.data?.user?.email}
+                placeholder="Your Email"
+                className="input border-none focus:outline-none w-full"
+                required
+
               />
             </label>
           </div>
@@ -86,31 +125,49 @@ const CheckoutPage = async ({ params }) => {
                 name="phone"
                 placeholder="Your Phone"
                 className="input border-none outline-none input-bordered w-full"
+                required
+              />
+            </label>
+          </div>
+          
+          <div>
+            <label htmlFor="">
+              <strong>Date</strong>
+              <input
+                type="date"
+                name="date"
+                className="input input-bordered  border-none outline-none w-full"
+                required
+
               />
             </label>
           </div>
 
           <div>
             <label htmlFor="">
-              <strong>Email</strong>
+              <strong>Price</strong>
               <input
-                type="email"
-                name="email"
+                type="text"
+                name="price"
+                defaultValue={`$ ${price}`}
+                placeholder="Price"
                 readOnly
-                defaultValue={"user@email.com"}
-                placeholder="Your Eamil"
-                className="input border-none outline-none input-bordered w-full"
+                className="input border-none focus:outline-none w-full"
+                required
               />
             </label>
           </div>
-          <div className="md:col-span-2 w-full ">
+
+          
+          <div className="w-full ">
             <label htmlFor="">
-              <strong>Message</strong>
+              <strong>Address</strong>
               <textarea
-                name="message"
+                name="address"
                 className="textarea text-base border-none outline-none textarea-bordered textarea-md w-full"
-                placeholder="Your Message"
-                rows="7"
+                placeholder="Your Address "
+                rows="1"
+                required
               ></textarea>
             </label>
           </div>

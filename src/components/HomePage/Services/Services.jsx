@@ -3,6 +3,7 @@
 import SectionHeading from "../../shared/SectionHeading/SectionHeading";
 import Service from "./Service/Service";
 import { useEffect, useState } from "react";
+import LoadingSpinner from './../../shared/LoadingSpinner/LoadingSpinner';
 
 const Services = () => {
   const [services, setServices] = useState([]);
@@ -24,11 +25,7 @@ const Services = () => {
   }, []);
 
   if (loading) {
-    return (
-      <div className="flex justify-center items-center min-h-[70vh]">
-        <span className="loading loading-spinner loading-lg"></span>
-      </div>
-    );
+    return <LoadingSpinner/>
   }
 
   return (

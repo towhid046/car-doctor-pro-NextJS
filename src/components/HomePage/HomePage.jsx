@@ -8,7 +8,7 @@ import TeamMembers from "./TeamMembers/TeamMembers";
 import ChooseUs from "./ChooseUs/ChooseUs";
 
 const HomePage = () => {
-  return (
+  return (  
     <>
       <Hero />
       <AboutUs />
