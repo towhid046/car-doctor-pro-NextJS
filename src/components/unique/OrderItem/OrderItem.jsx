@@ -1,13 +1,13 @@
 import Image from "next/image";
 
-const OrderItem = ({ item}) => {
+const OrderItem = ({ item, handleDeleteOrderItem}) => {
     const { _id, img, service_title, service_price, date, status } = item;
   
     return (
       <tr>
         <th>
           <button
-            // onClick={() => handleDeleteOrderItem(_id)}
+            onClick={() => handleDeleteOrderItem(_id)}
             className="btn btn-circle"
           >
             <svg
