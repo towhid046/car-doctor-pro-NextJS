@@ -5,26 +5,42 @@ import Link from "next/link";
 import { signIn } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import SocialLogin from "./../../components/shared/SocialLogin/SocialLogin";
+import LoadingSpinner from './../../components/shared/LoadingSpinner/LoadingSpinner';
+import {useState} from 'react'
+import { setLazyProp } from "next/dist/server/api-utils";
 
 
 const LoginPage = () => {
+  const [loading, setLoading] = useState(false)
   const router = useRouter();
 
   const handleLogin = async (e) => {
+    setLoading(true)
     e.preventDefault();
     const form = e.target;
     const email = form.email.value;
     const password = form.password.value;
 
+   try {
     const res = await signIn("credentials", {
       email,
       password,
       redirect: false,
     });
+
     if (res.status === 200) {
       router.push("/");
     }
+   } catch (error) {
+    alert(error.message)
+   }finally{
+    setLoading(false)
+   }
   };
+
+  if(loading){
+    return <LoadingSpinner/>
+  }
 
   return (
     <section className="container mx-auto px-4 py-10 flex-col-reverse lg:flex-row flex items-center justify-between lg:gap-10 gap-8">

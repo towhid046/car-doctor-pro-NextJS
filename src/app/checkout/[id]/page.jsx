@@ -57,7 +57,7 @@ console.error(error.message)
 
     // send post request to save new booking
   try{
-    const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/booking`, {
+    const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/post_booking`, {
       method: 'POST',
       body: JSON.stringify(newBooking),
       headers: {'Content-Type': 'application/json'}

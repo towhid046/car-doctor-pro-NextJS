@@ -8,9 +8,12 @@ import { useSession } from "next-auth/react";
 import { FaUserCheck } from "react-icons/fa";
 import { IoIosLogOut } from "react-icons/io";
 import { signOut } from "next-auth/react";
+import { useRouter } from 'next/navigation'
 
 const Navbar = () => {
   const session = useSession();
+  const router = useRouter()
+
   const links = (
     <>
       <li>
@@ -30,6 +33,13 @@ const Navbar = () => {
       </li>
     </>
   );
+
+  const handleSignOut = () => {
+     signOut()
+      router.push('/')
+    
+     
+  }
 
   return (
     <nav className="sticky z-50 top-0 mb-5 shadow-sm bg-white">
@@ -67,7 +77,7 @@ const Navbar = () => {
           <ul className="menu gap-3 menu-horizontal px-1">{links}</ul>
         </div>
         <div className="navbar-end gap-5 items-center">
-          <Link className="inline-block" href={"/cartDetails"}>
+          <Link className="inline-block" href={"/user_cart"}>
             <div className="indicator mt-2">
               <HiOutlineShoppingBag className="text-2xl cursor-pointer" />
               <span className="indicator-item badge badge-secondary">0</span>
@@ -115,7 +125,7 @@ const Navbar = () => {
                     </button>
                   </li>
                   <li className="text-error hover:text-red-500 transition duration-300  flex justify-center gap-5 items-center">
-                    <button onClick={() => signOut()}>Log out</button>
+                    <button onClick={handleSignOut}>Log out</button>
                     <IoIosLogOut />
                   </li>
                 </ul>
