@@ -11,7 +11,7 @@ const Services = () => {
   useEffect(() => {
     const loadData = async () => {
       try {
-        const res = await fetch("/services.json");
+        const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/services`);
         const data = await res.json();
         setServices(data);
       } catch (error) {
