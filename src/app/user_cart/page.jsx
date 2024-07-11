@@ -78,9 +78,7 @@ if(loading){
     return <LoadingSpinner/>
 }
 
-if(!setOrderItems.length){
-    return <h2 className="text-2xl font-bold italic text-gray-400 text-center ">No service booked Yet!</h2>
-}
+
 
   return (
     <section className="min-h-screen py-12 container mx-auto px-4">
