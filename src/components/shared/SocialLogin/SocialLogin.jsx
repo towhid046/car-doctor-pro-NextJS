@@ -1,13 +1,16 @@
 "use client";
 import { FaGoogle, FaGithub } from "react-icons/fa";
 import { signIn, useSession } from "next-auth/react";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 
 const SocialLogin = () => {
   const session = useSession();
   const router = useRouter();
+  const searchParams = useSearchParams()
+  const path = searchParams.get('redirect')
+
   const handleSocialLogin = (provider) => {
-    signIn(provider, { redirect: false });
+    signIn(provider, { redirect: true, callbackUrl: path ? path : '/' });
   };
 
   if (session?.status === "authenticated") {

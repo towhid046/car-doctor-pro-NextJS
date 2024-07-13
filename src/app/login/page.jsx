@@ -3,7 +3,7 @@ import Image from "next/image";
 import loginImg from "../../assets/images/login/login.svg";
 import Link from "next/link";
 import { signIn } from "next-auth/react";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import SocialLogin from "./../../components/shared/SocialLogin/SocialLogin";
 import LoadingSpinner from './../../components/shared/LoadingSpinner/LoadingSpinner';
 import {useState} from 'react'
@@ -13,6 +13,8 @@ import { setLazyProp } from "next/dist/server/api-utils";
 const LoginPage = () => {
   const [loading, setLoading] = useState(false)
   const router = useRouter();
+  const searchParams = useSearchParams()
+  const path = searchParams.get('redirect')
 
   const handleLogin = async (e) => {
     setLoading(true)
@@ -25,14 +27,15 @@ const LoginPage = () => {
     const res = await signIn("credentials", {
       email,
       password,
-      redirect: false,
+      redirect: true,
+      callbackUrl: path ?  path : '/'
     });
 
     if (res.status === 200) {
       router.push("/");
     }
    } catch (error) {
-    alert(error.message)
+    console.error(error.message)
    }finally{
     setLoading(false)
    }
