@@ -9,8 +9,8 @@ const Product = ({ product }) => {
       </figure>
       <div className="space-y-2 text-center">
         <div className="flex justify-center list-none items-center">
-          {rating.map((rate, i) => (
-            <li className="text-xl text-yellow-500" key={i}>{rate}</li>
+          {rating.map((rate, index) => (
+            <li className="text-xl text-yellow-500" key={index}>{rate}</li>
           ))}
         </div>
         <h2 className="text-2xl font-bold">{title}</h2>

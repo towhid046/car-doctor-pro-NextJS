@@ -16,10 +16,10 @@ const TeamMembers = () => {
       name: "Jon Doe",
       profession: "Engine Expert",
       socialLinks: [
-        <FaFacebook />,
-        <FaSquareXTwitter />,
-        <FaLinkedin />,
-        <FaSquareInstagram />,
+        <FaFacebook key={1}/>,
+        <FaSquareXTwitter key={2} />,
+        <FaLinkedin key={3}/>,
+        <FaSquareInstagram  key={4}/>,
       ],
     },
     {
@@ -28,10 +28,10 @@ const TeamMembers = () => {
       name: "Pitter Ho",
       profession: "Engine Expert",
       socialLinks: [
-        <FaFacebook />,
-        <FaSquareXTwitter />,
-        <FaLinkedin />,
-        <FaSquareInstagram />,
+        <FaFacebook key={1}/>,
+        <FaSquareXTwitter key={2} />,
+        <FaLinkedin key={3}/>,
+        <FaSquareInstagram  key={4}/>,
       ],
     },
     {
@@ -40,10 +40,10 @@ const TeamMembers = () => {
       name: "Alian Khan",
       profession: "Engine Specilist",
       socialLinks: [
-        <FaFacebook />,
-        <FaSquareXTwitter />,
-        <FaLinkedin />,
-        <FaSquareInstagram />,
+        <FaFacebook key={1}/>,
+        <FaSquareXTwitter key={2} />,
+        <FaLinkedin key={3}/>,
+        <FaSquareInstagram  key={4}/>,
       ],
     },
   ];

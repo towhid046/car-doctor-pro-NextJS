@@ -1,3 +1,5 @@
+
+
 import Image from "next/image";
 import Link from "next/link";
 import logo from "../../../assets/logo.svg";
@@ -6,10 +8,10 @@ import { FaXTwitter } from "react-icons/fa6";
 import { IoLogoGoogle } from "react-icons/io";
 const Footer = () => {
   const socialIcons = [
-    <IoLogoGoogle />,
-    <FaLinkedin />,
-    <FaInstagram />,
-    <FaXTwitter />,
+    <IoLogoGoogle key={1}/>,
+    <FaLinkedin  key={2}/>,
+    <FaInstagram  key={3}/>,
+    <FaXTwitter key={4}/>,
   ];
 
   const supports = [
