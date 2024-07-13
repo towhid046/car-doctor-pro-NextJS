@@ -1,3 +1,4 @@
+/* eslint-disable react/jsx-key */
 import SectionHeading from "./../../shared/SectionHeading/SectionHeading";
 import product1 from "../../../assets/images/products/1.png";
 import product2 from "../../../assets/images/products/2.png";
@@ -79,11 +80,11 @@ const Products = () => {
   return (
     <section className="py-12 container mx-auto px-4">
       <div className="text-center">
-      <SectionHeading
-        name="Popular Products"
-        title="Browse Our Products"
-        description={`the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable. `}
-      />
+        <SectionHeading
+          name="Popular Products"
+          title="Browse Our Products"
+          description={`the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable. `}
+        />
       </div>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         {products.map((product) => (
