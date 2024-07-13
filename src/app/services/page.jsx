@@ -13,11 +13,12 @@ const Services = () => {
   useEffect(() => {
     const loadData = async () => {
       try {
-        const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/services`);
+        const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/services`);
         const data = await res.json();
         setServices(data);
       } catch (error) {
         console.error(error.message);
+        return []
       } finally {
         setLoading(false);
       }

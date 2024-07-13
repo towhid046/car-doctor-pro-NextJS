@@ -17,11 +17,12 @@ const UserCart = () => {
         return <LoadingSpinner/>
     }
     try {
-        const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/get_a_user_bookings/${session?.data?.user?.email}`);
+        const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/get_a_user_bookings/${session?.data?.user?.email}`);
         const data = await res.json()
         setOrderItems(data)
     } catch (error) {
         console.error(error.message)
+        return[]
     }finally{
         setLoading(false)
     }
@@ -42,7 +43,7 @@ const UserCart = () => {
       dangerMode: true,
     }).then((willDelete) => {
       if (willDelete) {
-        fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/delete_a_booking/${id}`, {
+        fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/delete_a_booking/${id}`, {
           method: "DELETE",
         })
           .then((res) => res.json())

@@ -4,7 +4,7 @@ import SectionHeading from "../../shared/SectionHeading/SectionHeading";
 import Service from "./Service/Service";
 import { useEffect, useState } from "react";
 import LoadingSpinner from "./../../shared/LoadingSpinner/LoadingSpinner";
-import Link  from "next/link";
+import Link from "next/link";
 
 const Services = () => {
   const [services, setServices] = useState([]);
@@ -14,12 +14,13 @@ const Services = () => {
     const loadData = async () => {
       try {
         const res = await fetch(
-          `${process.env.NEXT_PUBLIC_API_URL}/api/services`
+          `${process.env.NEXT_PUBLIC_BASE_URL}/api/services`
         );
         const data = await res.json();
         setServices(data);
       } catch (error) {
         console.error(error.message);
+        return [];
       } finally {
         setLoading(false);
       }
@@ -46,7 +47,7 @@ const Services = () => {
         ))}
       </div>
       <div className="text-center py-7">
-        <Link href='/services'>
+        <Link href="/services">
           <button className="btn btn-outline btn-error">More Services</button>
         </Link>
       </div>

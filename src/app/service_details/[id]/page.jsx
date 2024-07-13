@@ -10,10 +10,15 @@ export const metadata = {
 };
 
 const loadService = async (id) => {
-  const res = await fetch(
-    `${process.env.NEXT_PUBLIC_API_URL}/api/services/${id}`
-  );
-  return await res.json();
+  try {
+    const res = await fetch(
+      `${process.env.NEXT_PUBLIC_BASE_URL}/api/services/${id}`
+    );
+    return await res.json();
+  } catch (error) {
+    return {}
+    
+  }
 };
 
 const CheckoutPage = async ({ params }) => {

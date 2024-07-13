@@ -19,7 +19,7 @@ const RegisterPage = () => {
 
     try {
       const res = await fetch(
-        `${process.env.NEXT_PUBLIC_API_URL}/register/api`,
+        `${process.env.NEXT_PUBLIC_BASE_URL}/register/api`,
         {
           method: "POST",
           headers: {
