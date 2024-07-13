@@ -1,10 +1,10 @@
 "use client";
 
-import SectionHeading from "../../shared/SectionHeading/SectionHeading";
-import Service from "./Service/Service";
+import SectionHeading from "../../components/shared/SectionHeading/SectionHeading";
+import Service from "../../components/HomePage/Services/Service/Service";
 import { useEffect, useState } from "react";
-import LoadingSpinner from "./../../shared/LoadingSpinner/LoadingSpinner";
-import Link  from "next/link";
+import LoadingSpinner from '../../components/shared/LoadingSpinner/LoadingSpinner';
+
 
 const Services = () => {
   const [services, setServices] = useState([]);
@@ -13,9 +13,7 @@ const Services = () => {
   useEffect(() => {
     const loadData = async () => {
       try {
-        const res = await fetch(
-          `${process.env.NEXT_PUBLIC_API_URL}/api/services`
-        );
+        const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/services`);
         const data = await res.json();
         setServices(data);
       } catch (error) {
@@ -28,7 +26,7 @@ const Services = () => {
   }, []);
 
   if (loading) {
-    return <LoadingSpinner />;
+    return <LoadingSpinner/>
   }
 
   return (
@@ -44,11 +42,6 @@ const Services = () => {
         {services?.map((service) => (
           <Service key={service._id} service={service} />
         ))}
-      </div>
-      <div className="text-center py-7">
-        <Link href='/services'>
-          <button className="btn btn-outline btn-error">More Services</button>
-        </Link>
       </div>
     </section>
   );
